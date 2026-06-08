@@ -1,0 +1,21 @@
+{
+  "name": "Armour Tint Studios",
+  "short_name": "ATS",
+  "description": "Premium Window Tinting, Ceramic Coating & Car Detailing in Dallas, TX",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#C9A84C",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
