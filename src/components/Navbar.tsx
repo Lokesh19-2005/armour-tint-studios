@@ -25,6 +25,13 @@ export default function Navbar() {
 
   const handleLinkClick = () => setMenuOpen(false)
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : 'unset'
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [menuOpen])
+
   return (
     <>
       <nav
@@ -180,53 +187,103 @@ export default function Navbar() {
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: 999,
+          zIndex: 1100,
           background: 'rgba(0,0,0,0.98)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          gap: '40px',
-          transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.4s cubic-bezier(0.77, 0, 0.175, 1)',
+          justifyContent: 'flex-start',
+          gap: '28px',
+          padding: '100px 24px 40px',
+          transform: menuOpen ? 'translateY(0)' : 'translateY(-100%)',
+          opacity: menuOpen ? 1 : 0,
+          visibility: menuOpen ? 'visible' : 'hidden',
+          transition: 'opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease',
+          overflowY: 'auto',
         }}
       >
+        <button
+          onClick={() => setMenuOpen(false)}
+          style={{
+            position: 'absolute',
+            top: '28px',
+            right: '24px',
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--color-white)',
+            cursor: 'pointer',
+            padding: '8px',
+          }}
+          aria-label="Close menu"
+        >
+          <X size={28} />
+        </button>
+
         <Image src="/logo.jpeg" alt="ATS" width={80} height={80} style={{ objectFit: 'contain' }} />
-        {navLinks.map((link, i) => (
-          <a
-            key={link.label}
-            href={link.href}
-            onClick={handleLinkClick}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '36px',
-              fontWeight: '300',
-              color: 'var(--color-white)',
-              textDecoration: 'none',
-              letterSpacing: '0.05em',
-              transition: 'color 0.3s ease',
-            }}
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'var(--color-gold)')}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-white)')}
-          >
-            {link.label}
-          </a>
-        ))}
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px', width: '100%', maxWidth: '360px' }}>
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={handleLinkClick}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '28px',
+                fontWeight: '300',
+                color: 'var(--color-white)',
+                textDecoration: 'none',
+                letterSpacing: '0.05em',
+                width: '100%',
+                textAlign: 'center',
+                transition: 'color 0.3s ease',
+              }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'var(--color-gold)')}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = 'var(--color-white)')}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
         <a
           href="tel:+19033579824"
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '10px',
             color: 'var(--color-gold)',
             textDecoration: 'none',
             fontFamily: 'var(--font-body)',
             fontWeight: '600',
             letterSpacing: '0.1em',
+            fontSize: '14px',
           }}
         >
           <Phone size={16} />
           (903) 357-9824
+        </a>
+
+        <a
+          href="#contact"
+          onClick={handleLinkClick}
+          style={{
+            marginTop: '16px',
+            fontFamily: 'var(--font-body)',
+            fontSize: '12px',
+            fontWeight: '700',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            padding: '14px 28px',
+            background: 'var(--gradient-gold)',
+            color: '#000',
+            textDecoration: 'none',
+            transition: 'opacity 0.3s ease',
+          }}
+          onMouseEnter={(e) => ((e.target as HTMLElement).style.opacity = '0.9')}
+          onMouseLeave={(e) => ((e.target as HTMLElement).style.opacity = '1')}
+        >
+          Get a Quote
         </a>
       </div>
 
